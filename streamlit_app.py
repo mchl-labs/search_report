@@ -789,21 +789,6 @@ st.pyplot(plt)
 st.subheader("Tabella Dati Grezzi")
 st.dataframe(df)
 
-st.subheader("Raccomandazioni")
-st.write("""
-**Raccomandazioni:**
-
-*   Migliorare Correzione Errori: Implementare un sistema di correzione automatica degli errori di battitura nelle query di ricerca.
-*   Ampliare Categorie: Aggiungere categorie specifiche per ingredienti mancanti (es. spezie, erbe aromatiche) e tipologie di piatti (es. zuppe, contorni).
-*   Sviluppare Contenuti: Creare nuovi contenuti focalizzati su:
-    *   Ricette vegetariane/vegane
-    *   Piatti a base di pollo e gamberetti
-    *   Utilizzo creativo di verdure e legumi
-*   Ottimizzare Suggerimenti: Utilizzare la cronologia di ricerca degli utenti per offrire suggerimenti di ricette e ingredienti pertinenti.
-*   Implementare Filtri: Aggiungere filtri di ricerca per consentire agli utenti di specificare preferenze dietetiche (es. senza glutine, vegetariano, a basso contenuto di carboidrati).
-*   Creare Pagine Dedicate: Creare pagine dedicate a ingredienti specifici e piatti molto cercati, offrendo informazioni dettagliate e ricette correlate.
-""")
-
 st.subheader("Key findings 🔍")
 st.write("""
 *   Gli utenti cercano spesso piatti italiani (pasta, piadina, risotto) e ingredienti salutari (lenticchie, verdura)

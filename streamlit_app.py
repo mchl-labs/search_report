@@ -4,6 +4,15 @@ import io
 import plotly.express as px
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+from nltk.corpus import stopwords
+import nltk
+
+# Download stopwords if not already present
+try:
+    stop_words = set(stopwords.words('italian'))
+except LookupError:
+    nltk.download('stopwords')
+    stop_words = set(stopwords.words('italian'))
 
 # Data Loading and Cleaning (same as before)
 data = """piadina
@@ -762,6 +771,12 @@ query_counts = df['cleaned_query'].value_counts().sort_values(ascending=False)
 #Filter out general queries for the word cloud
 query_counts_filtered = query_counts[query_counts.index.str.split().str.len() > 1]
 
+# Function to remove stopwords
+def remove_stopwords(text):
+    words = text.split()
+    filtered_words = [word for word in words if word not in stop_words]
+    return " ".join(filtered_words)
+
 # Streamlit App
 st.title("Analisi Query di Ricerca Utenti")
 
@@ -778,9 +793,13 @@ fig_queries = px.bar(x=query_counts.index[:num_queries], y=query_counts.values[:
 st.plotly_chart(fig_queries)
 
 # Word Cloud
-st.subheader("Word Cloud delle Query di Ricerca (Escluse Query Generiche)")
+st.subheader("Word Cloud delle Query di Ricerca (Escluse Query Generiche e Stopwords)")
+
+#Apply the stopwords function to the filtered queries
 text = " ".join(query_counts_filtered.index)
-wordcloud = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(text)
+filtered_text = remove_stopwords(text)
+
+wordcloud = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(filtered_text)
 plt.figure(figsize=(10,5))
 plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis("off")

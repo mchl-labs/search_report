@@ -700,7 +700,7 @@ def categorize_query(query):
         return 'Protein Sources'
     elif 'zucchine' in query or 'melanzane' in query or 'zucca' in query or 'cavolo' in query or 'broccoli' in query or 'piselli' in query or 'peperoni' in query or 'carote' in query or 'finocchi' in query or 'spinaci' in query or 'funghi' in query or 'patate' in query or 'lenticchie' in query or 'ceci' in query or 'fagioli' in query or 'asparagi' in query or 'sedano' in query or 'porri' in query or 'radicchio' in query or 'avocado' in query or 'pepe' in query:
         return 'Vegetables/Legumes'
-    elif 'uova' in query:
+    elif 'uovo' in query or 'uova' in query:
         return 'Eggs'
     elif 'formaggio' in query or 'ricotta' in query or 'yogurt' in query or 'latte' in query or 'panna' in query or 'mozzarella' in query or 'grana' in query or 'stracchino' in query or 'philadelphia' in query or 'scamorza' in query or 'feta' in query or 'robiola' in query or 'primo sale' in query:
         return 'Dairy Products'
@@ -772,17 +772,33 @@ st.plotly_chart(fig_queries)
 st.subheader("Tabella Dati Grezzi")
 st.dataframe(df)
 
-st.subheader("Raccomandazioni")
+st.subheader("Key findings")
 st.write("""
-**Raccomandazioni:**
+*   Gli utenti cercano spesso piatti italiani (pasta, piadina, risotto) e ingredienti associati al mangiar sano (lenticchie, verdura)
+*   **Pollo e gamberi** sono tra le fonti di proteine più cercate
+*   Sviluppare Contenuti: Creare nuovi contenuti focalizzati su:
+    *   Ricette vegetariane/vegane
+    *   Piatti a base di pollo e gamberetti
+    *   Utilizzo creativo di verdure e legumi
+*   Le query sono generalmente concentrate su ingredienti singoli e semplici, il che ci fa pensare che cerchino idee di ricette per pasti veloci e facili
+""")
 
-*   Migliorare Correzione Errori: Implementare un sistema di correzione automatica degli errori di battitura nelle query di ricerca.
-*   Ampliare Categorie: Aggiungere categorie specifiche per ingredienti mancanti (es. spezie, erbe aromatiche) e tipologie di piatti (es. zuppe, contorni).
+st.subheader("Proposte")
+st.write("""
+*   Suggerimenti di ricerca
+*   Aggiunta analytics su risultati della ricerca e effettiva rilevanza dei risultati (per ora non abbiamo alcuna informazione a riguardo)
 *   Sviluppare Contenuti: Creare nuovi contenuti focalizzati su:
     *   Ricette vegetariane/vegane
     *   Piatti a base di pollo e gamberetti
     *   Utilizzo creativo di verdure e legumi
 *   Ottimizzare Suggerimenti: Utilizzare la cronologia di ricerca degli utenti per offrire suggerimenti di ricette e ingredienti pertinenti.
 *   Implementare Filtri: Aggiungere filtri di ricerca per consentire agli utenti di specificare preferenze dietetiche (es. senza glutine, vegetariano, a basso contenuto di carboidrati).
-*   Creare Pagine Dedicate: Creare pagine dedicate a ingredienti specifici e piatti molto cercati, offrendo informazioni dettagliate e ricette correlate.
+""")
+
+st.subheader("Ongoing")
+st.write("""
+1.  Query analysis - Data pipeline setup (Raccolta query separate per ambiente)
+2.  Query suggestions
+3.  Add data ingestion for clicks on search results - (analisi performnce search)
+4.  Search results oredering and ranking
 """)

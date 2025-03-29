@@ -779,6 +779,7 @@ st.plotly_chart(fig_queries)
 
 # Word Cloud
 st.subheader("Word Cloud delle Query di Ricerca")
+st.write("Più la parola è grande più volte appare nelle query di ricerca")
 text = " ".join(query_counts.index)
 wordcloud = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(text)
 plt.figure(figsize=(10,5))

@@ -774,9 +774,8 @@ st.dataframe(df)
 
 st.subheader("Key findings 🔍")
 st.write("""
-*   Gli utenti cercano spesso piatti italiani (pasta, piadina, risotto) e ingredienti associati al mangiar sano (lenticchie, verdura)
+*   Gli utenti cercano spesso piatti italiani (pasta, piadina, risotto) e ingredienti salutari (lenticchie, verdura)
 *   **Pollo e gamberi** sono tra le fonti di proteine più cercate
-
 *   Le query sono generalmente concentrate su ingredienti singoli e semplici, il che ci fa pensare che cerchino idee di ricette per pasti veloci e facili
 """)
 
@@ -796,6 +795,6 @@ st.subheader("Ongoing 👷🏻🚧🏗️")
 st.write("""
 1.  Query analysis - Data pipeline setup (Raccolta query separate per ambiente)
 2.  Query suggestions
-3.  Add data ingestion for clicks on search results - (analisi performnce search)
-4.  Search results oredering and ranking
+3.  Add data ingestion for clicks on search results - (analisi performance search)
+4.  Search results ordering and ranking
 """)

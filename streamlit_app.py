@@ -766,9 +766,11 @@ query_counts = query_counts[query_counts.index.str.split().str.len() > 1]
 st.title("Analisi Query di Ricerca Utenti")
 
 st.subheader("Distribuzione Categorie")
-fig_categories = px.bar(x=category_counts.index, y=category_counts.values, labels={'x': 'Categoria', 'y': 'Frequenza'})
+category_counts = df['category'].value_counts().sort_values(ascending=False)
+fig_categories = px.bar(x=list(category_counts.index), y=list(category_counts.values), labels={'x': 'Categoria', 'y': 'Frequenza'})
 st.plotly_chart(fig_categories)
 
+# Most Searched Queries (Improved)
 st.subheader("Query di Ricerca Più Frequenti (Escluse Query Generiche)")
 num_queries = st.slider("Numero di Query da Visualizzare", min_value=5, max_value=30, value=15)
 
@@ -786,6 +788,21 @@ st.pyplot(plt)
 
 st.subheader("Tabella Dati Grezzi")
 st.dataframe(df)
+
+st.subheader("Raccomandazioni")
+st.write("""
+**Raccomandazioni:**
+
+*   Migliorare Correzione Errori: Implementare un sistema di correzione automatica degli errori di battitura nelle query di ricerca.
+*   Ampliare Categorie: Aggiungere categorie specifiche per ingredienti mancanti (es. spezie, erbe aromatiche) e tipologie di piatti (es. zuppe, contorni).
+*   Sviluppare Contenuti: Creare nuovi contenuti focalizzati su:
+    *   Ricette vegetariane/vegane
+    *   Piatti a base di pollo e gamberetti
+    *   Utilizzo creativo di verdure e legumi
+*   Ottimizzare Suggerimenti: Utilizzare la cronologia di ricerca degli utenti per offrire suggerimenti di ricette e ingredienti pertinenti.
+*   Implementare Filtri: Aggiungere filtri di ricerca per consentire agli utenti di specificare preferenze dietetiche (es. senza glutine, vegetariano, a basso contenuto di carboidrati).
+*   Creare Pagine Dedicate: Creare pagine dedicate a ingredienti specifici e piatti molto cercati, offrendo informazioni dettagliate e ricette correlate.
+""")
 
 st.subheader("Key findings 🔍")
 st.write("""

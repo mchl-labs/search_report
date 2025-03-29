@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import io
 import plotly.express as px
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 # Data Loading and Cleaning (same as before)
 data = """piadina
@@ -465,7 +467,7 @@ prim
 pasta di legumi
 pepe rosa
 lentcchiei
-lentcchie
+lenticchie
 riso integrale
 pasta con pesce spada
 patate e piselli
@@ -756,7 +758,9 @@ df['category'] = df['cleaned_query'].apply(categorize_query)
 df = df[~((df['category'] == 'Uncategorized') & (df['cleaned_query'].str.len() < 3))]
 
 query_counts = df['cleaned_query'].value_counts().sort_values(ascending=False)
-category_counts = df['category'].value_counts().sort_values(ascending=False)
+
+#Filter out general queries:
+query_counts = query_counts[query_counts.index.str.split().str.len() > 1]
 
 # Streamlit App
 st.title("Analisi Query di Ricerca Utenti")
@@ -765,9 +769,20 @@ st.subheader("Distribuzione Categorie")
 fig_categories = px.bar(x=category_counts.index, y=category_counts.values, labels={'x': 'Categoria', 'y': 'Frequenza'})
 st.plotly_chart(fig_categories)
 
-st.subheader("Query di Ricerca Più Frequenti")
-fig_queries = px.bar(x=query_counts.index[:20], y=query_counts.values[:20], labels={'x': 'Query', 'y': 'Frequenza'})
+st.subheader("Query di Ricerca Più Frequenti (Escluse Query Generiche)")
+num_queries = st.slider("Numero di Query da Visualizzare", min_value=5, max_value=30, value=15)
+
+fig_queries = px.bar(x=query_counts.index[:num_queries], y=query_counts.values[:num_queries], labels={'x': 'Query', 'y': 'Frequenza'})
 st.plotly_chart(fig_queries)
+
+# Word Cloud
+st.subheader("Word Cloud delle Query di Ricerca")
+text = " ".join(query_counts.index)
+wordcloud = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(text)
+plt.figure(figsize=(10,5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis("off")
+st.pyplot(plt)
 
 st.subheader("Tabella Dati Grezzi")
 st.dataframe(df)

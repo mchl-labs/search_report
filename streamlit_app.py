@@ -772,18 +772,15 @@ st.plotly_chart(fig_queries)
 st.subheader("Tabella Dati Grezzi")
 st.dataframe(df)
 
-st.subheader("Key findings")
+st.subheader("Key findings 🔍")
 st.write("""
 *   Gli utenti cercano spesso piatti italiani (pasta, piadina, risotto) e ingredienti associati al mangiar sano (lenticchie, verdura)
 *   **Pollo e gamberi** sono tra le fonti di proteine più cercate
-*   Sviluppare Contenuti: Creare nuovi contenuti focalizzati su:
-    *   Ricette vegetariane/vegane
-    *   Piatti a base di pollo e gamberetti
-    *   Utilizzo creativo di verdure e legumi
+
 *   Le query sono generalmente concentrate su ingredienti singoli e semplici, il che ci fa pensare che cerchino idee di ricette per pasti veloci e facili
 """)
 
-st.subheader("Proposte")
+st.subheader("Proposte miglioramenti 💪")
 st.write("""
 *   Suggerimenti di ricerca
 *   Aggiunta analytics su risultati della ricerca e effettiva rilevanza dei risultati (per ora non abbiamo alcuna informazione a riguardo)
@@ -795,7 +792,7 @@ st.write("""
 *   Implementare Filtri: Aggiungere filtri di ricerca per consentire agli utenti di specificare preferenze dietetiche (es. senza glutine, vegetariano, a basso contenuto di carboidrati).
 """)
 
-st.subheader("Ongoing")
+st.subheader("Ongoing 👷🏻🚧🏗️")
 st.write("""
 1.  Query analysis - Data pipeline setup (Raccolta query separate per ambiente)
 2.  Query suggestions

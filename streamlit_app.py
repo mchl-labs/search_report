@@ -355,7 +355,7 @@ Uova all'occhio con patate croccanti
 pasta e zucchine
 pesce al forno
 pasta veloce
-ahjsdadsgjhasdjghasd
+ahjsdadsgjghasd
 trota
 asadsasd
 adshdjs
@@ -759,8 +759,8 @@ df = df[~((df['category'] == 'Uncategorized') & (df['cleaned_query'].str.len() <
 
 query_counts = df['cleaned_query'].value_counts().sort_values(ascending=False)
 
-#Filter out general queries:
-query_counts = query_counts[query_counts.index.str.split().str.len() > 1]
+#Filter out general queries for the word cloud
+query_counts_filtered = query_counts[query_counts.index.str.split().str.len() > 1]
 
 # Streamlit App
 st.title("Analisi Query di Ricerca Utenti")
@@ -771,16 +771,15 @@ fig_categories = px.bar(x=list(category_counts.index), y=list(category_counts.va
 st.plotly_chart(fig_categories)
 
 # Most Searched Queries (Improved)
-st.subheader("Query di Ricerca Più Frequenti (Escluse Query Generiche)")
+st.subheader("Query di Ricerca Più Frequenti")
 num_queries = st.slider("Numero di Query da Visualizzare", min_value=5, max_value=30, value=15)
 
 fig_queries = px.bar(x=query_counts.index[:num_queries], y=query_counts.values[:num_queries], labels={'x': 'Query', 'y': 'Frequenza'})
 st.plotly_chart(fig_queries)
 
 # Word Cloud
-st.subheader("Word Cloud delle Query di Ricerca")
-st.write("Più la parola è grande più volte appare nelle query di ricerca")
-text = " ".join(query_counts.index)
+st.subheader("Word Cloud delle Query di Ricerca (Escluse Query Generiche)")
+text = " ".join(query_counts_filtered.index)
 wordcloud = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(text)
 plt.figure(figsize=(10,5))
 plt.imshow(wordcloud, interpolation='bilinear')

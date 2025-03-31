@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
 import nltk
 
-# Download stopwords if not already present
+# Download stopwords if necessary
 try:
     stop_words = set(stopwords.words('italian'))
 except LookupError:
@@ -696,8 +696,6 @@ df['cleaned_query'] = df['cleaned_query'].replace({'legu':'legumi'})
 
 # Remove nonsense queries (very aggressive)
 df = df[~df['cleaned_query'].str.contains(r'^[a-z0-9]{5,}$', regex=True)]  # Remove 5+ char alphanumeric strings
-
-#Remove queries that look like memory addresses
 df = df[~df['cleaned_query'].str.contains(r'0x[a-f0-9]+', regex=True)]
 
 def categorize_query(query):
@@ -777,7 +775,7 @@ def remove_stopwords(text):
     filtered_words = [word for word in words if word not in stop_words]
     return " ".join(filtered_words)
 
-# Streamlit App
+### STREAMLIT
 st.title("Analisi Query di Ricerca Utenti")
 
 st.subheader("Distribuzione Categorie")
@@ -785,17 +783,15 @@ category_counts = df['category'].value_counts().sort_values(ascending=False)
 fig_categories = px.bar(x=list(category_counts.index), y=list(category_counts.values), labels={'x': 'Categoria', 'y': 'Frequenza'})
 st.plotly_chart(fig_categories)
 
-# Most Searched Queries (Improved)
 st.subheader("Query di Ricerca Più Frequenti")
 num_queries = st.slider("Numero di Query da Visualizzare", min_value=5, max_value=30, value=15)
 
 fig_queries = px.bar(x=query_counts.index[:num_queries], y=query_counts.values[:num_queries], labels={'x': 'Query', 'y': 'Frequenza'})
 st.plotly_chart(fig_queries)
 
-# Word Cloud
 st.subheader("Word Cloud delle Query di Ricerca (Escluse Query Generiche e Stopwords)")
 
-#Apply the stopwords function to the filtered queries
+#Apply remove stopwords to the filtered queries
 text = " ".join(query_counts_filtered.index)
 filtered_text = remove_stopwords(text)
 
